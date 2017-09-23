@@ -38,13 +38,34 @@ double *generateSquareRandomMatrix( unsigned int n )
   }
 }
 
+void eliminaGaussLU(double *A, int n)
+{
+	for(int i = 0; i < n; ++i){
+		maior = A[i];
+		
+		for(int pivo = i+n; pivo < n*n; pivo+=n){
+			if (A[pivo] > maior)
+				maior = A[pivo];
+		}
+		if (A[maior] <> A[i])
+			trocaLinhas(A, i, maior)	
+		 
+		for (int j = 0; j < n; ++j){
+			
+			
+			
+			}
+		
+		}
+	
+	}
 
 int main(int argc, char *argv[])
 {
       
     double *A = NULL;
     double *AI = NULL;
-    double *x = NULL;
+    double *b = NULL;
     FILE *arquivo_entrada, *arquivo_saida;
 	
 	int n;
@@ -64,9 +85,9 @@ int main(int argc, char *argv[])
 			  {
 				A = (double *) malloc(n*n*sizeof(double));
 				AI = (double *) malloc(n*n*sizeof(double));
-				x = (double *) malloc(n*n*sizeof(double));
+				b = (double *) malloc(n*n*sizeof(double));
 		  
-				if (!A || !AI || !x) {
+				if (!A || !AI || !b) {
 					fprintf(stderr, "\nProblemas ao alocar memória!\n");
 					return ERRO;
 				}	
@@ -86,9 +107,9 @@ int main(int argc, char *argv[])
 				n = aux;
 				A = (double *) malloc(n*n*sizeof(double));
 				AI = (double *) malloc(n*n*sizeof(double));
-				x = (double *) malloc(n*n*sizeof(double));
+				b = (double *) malloc(n*n*sizeof(double));
 		  
-				if (!A || !AI || !x) {
+				if (!A || !AI || !b) {
 					fprintf(stderr, "\nProblemas ao alocar memória!\n");
 					return ERRO;
 				}	
@@ -116,8 +137,8 @@ int main(int argc, char *argv[])
 		  }	
 		}	
 	 
-	 if (strcmp("-o",argv[i]) == 0) 
-		 {
+		if (strcmp("-o",argv[i]) == 0) 
+		{
 				(arquivo_saida = fopen(argv[i+1], "w")); 	
 				if (arquivo_saida == NULL) 
 				{
@@ -126,5 +147,7 @@ int main(int argc, char *argv[])
 				}
 		}
 	}	
+	eliminaGaussLU(A);
+	resolveSistema(A, AI, b);
 	 
 } 
